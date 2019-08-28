@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>arg3diversos playlist</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" type="image/png" href="icon.png" />
+<link rel="stylesheet" type="text/css" href="css/reset.css" />
+<style type="text/css">
+body{overflow:hidden; background:transparent; }
+#contentW, #playlistW, #playerW{ position:absolute; overflow:hidden;}
+#contentW{z-index:10; top:0; bottom:0; left:0; right:0;}
+#playlistW{ z-index:1; right:0; top:0; bottom:0; width:0; }
+#playerW{z-index:2; left:0; right:0; height:0;}
+#content{ position:relative; height:100%; width:100%;  }
+</style>
+<link rel="stylesheet" type="text/css" href="css/arg3diversos.css?168" />
+<link rel="stylesheet" type="text/css" data-bind="attr:{href:skin}" id="skin" />
+</head>
+<body>
+	<div id="contentW" data-bind="style:{top:placement()=='top'?'25px':'0',
+		bottom:placement()=='top'?'0':'25px', right:showPlaylist()?'202px':'0'}">
+<script type="text/javascript">
+(function(){
+ 	if(window==window.parent)
+		location.href = 'https://arg3-diversos.blogspot.com/2016/07/entretenimento-de-qualidade-para-todas-as-idades.html';
+	var addEvent = function(elm, evType, fn) {
+			if(elm.addEventListener) 
+				elm.addEventListener(evType, fn);
+			else if (elm.attachEvent) 
+				elm.attachEvent('on' + evType, fn);
+			else
+				elm['on' + evType] = fn;
+		},
+		url = location.hash.substr(1),
+		host = url.substr(0,url.indexOf('/',10));
+	window.arg3diversosQueue = [];
+	addEvent(window,'message',function(e){
+		var data = e.data;
+		if(data.indexOf('arg3diversos')!=0) 
+			return;
+		if(window.arg3diversos && window.Song)
+			(new Function("arg3diversos,Song",data))(arg3diversos,Song);
+		else
+			arg3diversosQueue.push(data);
+	});
+	url = url.replace(/(\%27|')/g, '%2527');
+	document.write('<iframe src="javascript:location.replace(\''+url+'\');" frameborder="0" id="content" allowtransparency="true" name="content"></iframe>');
+})();
+</script>
+</div>
+<div id="playerW" data-bind="style:{ top:placement()=='top'?'0':'auto', 
+	bottom:placement()=='top'?'auto':'0',height:'25px'}"></div>
+<div id="playlistW" data-bind="style:{top:placement()=='top'?'25px':'0',
+		bottom:placement()=='top'?'0':'25px', width:showPlaylist()?'202px':'0'}"></div>
+
+<script type="text/javascript" src="js/lib/soundmanager/soundmanager2-nodebug-jsmin.js"></script>
+<script type="text/javascript" src="config.js?168"></script>
+<script type="text/javascript" src="js/lib/require/require.js"></script>
+<script type="text/javascript" >
+require([
+	'knockout','jquery','underscore',
+	'text!view/player.html',
+	'text!view/playlist.html',
+	'arg3diversos','song','arg3diversos.ui',
+	'binding/slider',
+	'binding/arg3diversos'
+	],function(ko,$,_,playerView,playlistView,arg3diversos,Song){
+		$("#playerW").html(playerView);
+		$("#playlistW").html(playlistView);
+		var config = arg3diversos.config;
+		arg3diversos.config = _.once(function(data){
+			config(data);
+			ko.applyBindings(arg3diversos,$('#skin').get(0));
+			setTimeout(function(){
+				$('#contentW,#playerW,#playlistW').each(function(){
+					ko.applyBindings(arg3diversos,this);
+					$(this).mousedown(function(){
+						return false;
+					});
+				});
+			},200);
+		});
+		while(arg3diversosQueue.length > 0)
+			(new Function('arg3diversos,Song',arg3diversosQueue.shift()))(arg3diversos,Song);
+		window.arg3diversos = arg3diversos;
+		window.Song = Song;
+		var resize = function(){
+			$('#content').height($('#contentW').height());
+		}
+		$(window).resize(_.throttle(resize,100));
+		resize();
+    var 
+    shown = false,
+    checkAd = function(){
+      if(arg3diversos.showAd() && !shown){
+        $.getScript('http://s3.buysellads.com/ac/bsa.js');
+        shown = true;
+      }
+    };
+    arg3diversos.showAd.subscribe(checkAd);
+    checkAd();
+	});
+</script>
+</body>
+</html>
