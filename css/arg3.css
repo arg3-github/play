@@ -1,0 +1,41 @@
+#player , #playlist {
+	posição : relativa ; altura : 100 % ; largura : 100 % ; tamanho da fonte : 11 px ;  
+	família de fontes : Verdana , Arial , sans-serif ; cursor : padrão ; Altura da linha : 1.2 ;
+}
+
+#player  .item , #player  .mainImage , #player  .ui-slider-handle ,
+#player  #seekerSlider , #player  #seeker
+{ altura : 25 px ; top : 0 ; posição : absoluta ; }
+#player  .text , #player  #seekerBase , #player  #seekerBuffered , #player { position : absolute ; }
+
+#player  a { text-decoration : nenhum ; }
+#player  a : hover { text-decoration : sublinhado ; }
+ 
+#player  #baseLeft { z-index : 1 ; }
+#player  #baseRight { z-index : 1 ; direita : 0 ; posição de fundo : parte  superior direita ; }
+#player  #play { z-index : 3 ; }
+#player  .item { z-index : 2 ; }
+#player  .bound { position : relative ; altura : 100 % ; }
+#player  .text { z-index : 2 ; tamanho da fonte : 11 px ; altura : 20 px ; topo : 5 px ; cursor : padrão ; }
+Botão  #player , #player  .ui-slider-handle { cursor : pointer ; }
+ 
+#player  #seekerSliderBase { z-index : 3 ; margem esquerda : -3 px ; topo : 9 px ; largura : 6 px ; altura : 7 px ; }
+#player  #seekerBuffered { z-index : 1 ; largura : 70 % ; topo : 9 px ; altura : 7 px ; esquerda : 0 ; }
+#player  #seekerBase { z-index : 2 ; largura : 100 % ; borda : 1 px  sólido ; topo : 9 px ; altura : 5 px ; esquerda : -1 px ; }
+
+#player  #tooltip { largura : 115 px ; texto-alinhar : centro ; }
+
+#playlist { border-bottom : 1 px  sólido ; }
+#playlist  .module { fundo : branco ; borda : 1 px  sólido ; border-bottom : nenhum ; }
+#playlistContainer { position : absolute ; topo : 20 px ; fundo : 0 ; esquerda : 0 ; direita : 0 ; z-index : 1 ; }
+#playlist  h3 { borda inferior : 1 px  sólido ; font-weight : negrito ; preenchimento : 3 px  5 px ;
+ 
+#playlist  li { cursor : ponteiro ; }
+#playlist  .items {
+	overflow-x : oculto ; estouro-y : auto ;
+	list-style-type : decimal ;
+	lista de estilo de posição : dentro ;
+  posição : absoluta ;
+  top : 0 ; fundo : 0 ; direita : 0 ; esquerda : 0 ;
+}
+#playlist  .item { cursor : ponteiro ; preenchimento : 4 px  5 px ; largura : 1000 px ; }
